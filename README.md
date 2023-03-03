@@ -1,2 +1,2 @@
 # exemplos
-Alguns exemplos
+Alguns exemplos simples.

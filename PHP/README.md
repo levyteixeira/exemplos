@@ -2,18 +2,18 @@
 
 ## Índice
 
-  1. [Introdução](#introducao)
-  2. [Banco de Dados com PDO](#BDPDO)
-     * [Conexão com o Banco de Dados](#use-conexao_mysql)
+  1. [Introdução](#introdução)
+  2. [PDO](#pdo)
+     * [Conexão com Banco de Dados](#conexao-com-banco-de-dados)
 
 
 ## Introdução
 
 A ideia inicial é manter exemplos simples de codigos para uso com PHP. 
 
-## Banco de Dados com PDO
+## PDO
 
-### Conexão com o Banco de Dados
+### Conexão com Banco de Dados
 
 **MySQL:**
 
@@ -27,3 +27,4 @@ try {
 ```
 
 **[⬆ retornar](#conexao_mysql)**
+

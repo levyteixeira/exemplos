@@ -5,7 +5,8 @@
   1. [Introdução](#introdução)
   2. [PDO](#pdo)
      * [Conexão com Banco de Dados](#conexao-com-banco-de-dados)
-     * [Retornando dados com SELECT](#retornando-dados-com-select)
+     * [Retornando dados](#retornando-dados)
+     * [Manipulando dados](#manipulando-dados)
 
 
 ## Introdução
@@ -33,7 +34,7 @@ try {
 
 **[⬆ retornar](#conexao-com-banco-de-dados)**
 
-### Retornando dados com SELECT
+### Retornando dados
 
 Podemos retornar os dados linha a linha
 
@@ -70,5 +71,63 @@ $retorno = $stm->fetchAll();
 ```
 
 
-**[⬆ retornar](#retornando-dados-com-select)**
+**[⬆ retornar](#retornando-dados)**
 
+### Manipulando dados
+
+Inserindo dados
+
+```php
+$id_novo = 0;
+$pdo->beginTransaction();
+try {
+    $texto = 'MAIS UM TEXTO';
+    $stm = $pdo->prepare('INSERT INTO tabela (texto) VALUES(:texto)');
+    $stm->bindParam(':texto', $texto, PDO::PARAM_STR);
+    $stm->execute();    
+    $id_novo = $pdo->lastInsertId();
+    $pdo->commit();
+} catch (\Throwable $th) {
+    $pdo->rollback();
+    echo 'Trate a mensagem de seu erro: <br>- ' . $th->getMessage();
+    die();
+}
+```
+
+Alterando dados
+
+```php
+$pdo->beginTransaction();
+try {
+    $id = 2;
+    $texto = 'OUTRO TEXTO';
+    $stm = $pdo->prepare('UPDATE tabela SET texto = :novo_texto WHERE id = :id;');
+    $stm->bindParam(':id', $id, PDO::PARAM_INT);
+    $stm->bindParam(':novo_texto', $texto, PDO::PARAM_STR);
+    $stm->execute();    
+    $pdo->commit();
+} catch (\Throwable $th) {
+    $pdo->rollback();
+    echo 'Trate a mensagem de seu erro: <br>- ' . $th->getMessage();
+    die();
+}
+```
+
+Excluindo dados 
+
+```php
+$pdo->beginTransaction();
+try {
+    $id = 2;
+    $stm = $pdo->prepare('DELETE FROM tabela WHERE id = :id;');
+    $stm->bindParam(':id', $id, PDO::PARAM_INT);
+    $stm->execute();    
+    $pdo->commit();
+} catch (\Throwable $th) {
+    $pdo->rollback();
+    echo 'Trate a mensagem de seu erro: <br>- ' . $th->getMessage();
+    die();
+}
+```
+
+**[⬆ retornar](#manipulando-dados)**
